@@ -12,7 +12,7 @@ first <- function(df) {         # The arguments, or input, to the function goes 
 }
 
 ## Change the url for the origin repo
-system('git config --global user.name "Daniel Damineli"')
+system('git config --global user.name "damineli"')
 system('git config --global user.email "danieldamineli@gmail.com"')
 
 system('git remote set-url origin https://github.com/damineli/sesync.git')

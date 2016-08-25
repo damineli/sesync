@@ -26,6 +26,6 @@ requirements <- c('tidyr',
 missing <- setdiff(requirements,
                    rownames(installed.packages()))
 
-if (length(missing)!=0) {
+if (length(missing) != 0) {
   install.packages(missing)
 }

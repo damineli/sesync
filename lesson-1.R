@@ -13,7 +13,7 @@ first <- function(df) {         # The arguments, or input, to the function goes 
 
 ## Change the url for the origin repo
 
-system('git remote set-url origin ...')
+system('git remote set-url origin https://github.com/damineli/sesync.git')
 
 ## Install missing packages
 

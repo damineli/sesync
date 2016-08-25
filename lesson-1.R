@@ -12,6 +12,8 @@ first <- function(df) {         # The arguments, or input, to the function goes 
 }
 
 ## Change the url for the origin repo
+system('git config --global user.name "Daniel Damineli"')
+system('git config --global user.email "danieldamineli@gmail.com"')
 
 system('git remote set-url origin https://github.com/damineli/sesync.git')
 
@@ -21,9 +23,9 @@ requirements <- c('tidyr',
                   'ggplot2',
                   'RSQLite',
                   'rmarkdown')
-missing <- setdiff(...,
+missing <- setdiff(requirements,
                    rownames(installed.packages()))
 
-if (...) {
+if (length(missing)!=0) {
   install.packages(missing)
 }

@@ -59,25 +59,34 @@ counts_1990_winter <- summarize(surveys_1990_winter_gb, count = n())
 surveys_ex3 <- filter(surveys, 
                       species_id == "DM") # select rows
 
-surveys_ex3 <- select(surveys_ex3, hindfoot_length, weight, month) # selects columns
+surveys_summ <- summarize(group_by(surveys_ex3 , month), average_weight = mean(weight,na.rm=T), average_foot = mean(hindfoot_length,na.rm=T))
+
+#surveys_ex3 <- select(surveys_ex3, hindfoot_length, weight, month) # selects columns
 
 #summary.dat <- summarize(group_by(surveys_ex3, month), average = mean(weight,na.rm=T))
 
-surveys_summ <- summarize(group_by(surveys_ex3 , month), average_weight = mean(weight,na.rm=T), average_foot = mean(hindfoot_length,na.rm=T))
 
 ## Transformation of variables
 
-prop_1990_winter <- mutate(...)
+prop_1990_winter <- mutate(counts_1990_winter, prop = count / sum(count))
 
 ## Exercise 4
 
-...
+
+step_A <- filter(group_by(surveys_1990_winter, species_id), weight == min(weight, na.rm = TRUE)) 
+#OR
+min.weight <- summarize(group_by(surveys_1990_winter, species_id), min_weight = min(weight,na.rm = TRUE))
+
+#######
+#row_number gives you the RANK
+
+hindfoot_rank <- mutate(group_by(surveys_1990_winter, species_id), rank = row_number(hindfoot_length))
 
 ## Chainning with pipes
 
 prop_1990_winter_piped <- surveys %>%
-  filter(year == 1990, month %in% 1:3)
-  ... # select all columns but year
-  ... # group by species_id
-  ... # summarize with counts
-  ... # mutate into proportions
+  filter(year == 1990, month %in% 1:3) %>%
+  select(-year) %>% # select all columns but year
+  group_by(species_id) %>%# group by species_id
+  summarize(count = n()) %>% # summarize with counts
+  mutate(prop = count/sum(count)) # mutate into proportions
